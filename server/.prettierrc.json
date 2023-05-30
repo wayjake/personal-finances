@@ -4,5 +4,6 @@
   "printWidth": 120,
     "editor.formatOnSave": true,
     "useTabs": false,
-    "tabWidth": 4
+    "tabWidth": 4,
+    "semi": false
 }
