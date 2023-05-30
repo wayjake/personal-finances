@@ -1,12 +1,6 @@
 import { createInterface } from 'readline'
 import { createWriteStream, createReadStream } from 'fs'
 
-interface Row {
-    date: string
-    amount: number
-    description: string
-}
-
 async function csvToJson(csvPath: string, jsonPath: string) {
     const writeStream = createWriteStream(jsonPath, 'utf8')
     const rl = createInterface({
@@ -14,12 +8,10 @@ async function csvToJson(csvPath: string, jsonPath: string) {
         crlfDelay: Infinity,
     })
 
-    let data: Row[] = []
+    let data: Transaction[] = []
 
     rl.on('line', (line: string) => {
-        const [date, amount, , , description] = line
-            .replaceAll(`\"`, '')
-            .split(',')
+        const [date, amount, , , description] = line.replaceAll(`\"`, '').split(',')
         data.push({ date, amount: Number(amount), description })
     })
 

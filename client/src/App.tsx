@@ -9,9 +9,7 @@ function App() {
     const query = useQuery({
         queryKey: ['transactions/search'],
         queryFn: async () => {
-            const { data } = await axios.get(
-                'http://localhost:3000/api/v1/transactions/search'
-            )
+            const { data } = await axios.get('http://localhost:3000/api/v1/transactions/search')
             return data
         },
     })

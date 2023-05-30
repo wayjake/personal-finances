@@ -1,7 +1,9 @@
+import { useEffect } from 'react'
 import styled from 'styled-components'
 import { Card } from './Card'
+import { useCardStore } from './card.store'
 
-const DiagramContainer = styled.div`
+const UMLContainer = styled.div`
     position: relative;
     display: flex;
     width: 100vw;
@@ -10,23 +12,23 @@ const DiagramContainer = styled.div`
     align-items: center;
 `
 
-const UNLDiagram: React.FC = () => {
+const UMLDiagram: React.FC = () => {
+    const cards = useCardStore((state) => state.cards)
+    const addCard = useCardStore((state) => state.addCard)
+
+    useEffect(() => {
+        // adding cards for demonstration
+        addCard('Card 1', 'This is the body of Card 1', 100, 200)
+        addCard('Card 2', 'This is the body of Card 2', -200, -100)
+    }, [])
+
     return (
-        <DiagramContainer>
-            <Card
-                title="Card 1"
-                body="This is the body of Card 1"
-                x={100}
-                y={200}
-            />
-            <Card
-                title="Card 2"
-                body="This is the body of Card 2"
-                x={-200}
-                y={-100}
-            />
-        </DiagramContainer>
+        <UMLContainer>
+            {cards.map((card) => (
+                <Card key={card.id} title={card.title} body={card.body} x={card.x} y={card.y} />
+            ))}
+        </UMLContainer>
     )
 }
 
-export default UNLDiagram
+export default UMLDiagram

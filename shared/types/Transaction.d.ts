@@ -1,5 +1,5 @@
 type Transaction = {
-    date: Date
+    date: string
     amount: number
     description: string
 }

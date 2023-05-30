@@ -1,4 +1,6 @@
+import { FC } from 'react'
 import styled from 'styled-components'
+import Draggable from 'react-draggable'
 
 const CardContainer = styled.div`
     position: absolute;
@@ -26,11 +28,13 @@ interface CardProps {
     y: number
 }
 
-export const Card = ({ title, body, x, y }: CardProps) => {
+export const Card: FC<CardProps> = ({ title, body, x, y }) => {
     return (
-        <CardContainer style={{ transform: `translate(${x}px, ${y}px)` }}>
-            <CardTitle>{title}</CardTitle>
-            <CardBody>{body}</CardBody>
-        </CardContainer>
+        <Draggable position={{ x, y }}>
+            <CardContainer>
+                <CardTitle>{title}</CardTitle>
+                <CardBody>{body}</CardBody>
+            </CardContainer>
+        </Draggable>
     )
 }
