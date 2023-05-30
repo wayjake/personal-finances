@@ -1,6 +1,6 @@
 import express from 'express'
 import cors from 'cors'
-import search from './transactions/search'
+import search from './routes/transactions/search'
 
 const app = express()
 
@@ -14,6 +14,7 @@ app.get('/', (req, res) => {
 
 // Base route
 app.get('/api/v1/health', (req, res) => {
+    // do some db call here.
     res.status(200).send('OK')
 })
 
