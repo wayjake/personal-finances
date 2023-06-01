@@ -15,7 +15,8 @@ const UMLContainer = styled.div`
 const UMLDiagram: React.FC = () => {
     const cards = useCardStore((state) => state.cards)
     const addCard = useCardStore((state) => state.addCard)
-
+    // const cards: any[] = []
+    // const addCard = (arg1, arg2, arg3, arg4) => {}
     useEffect(() => {
         // adding cards for demonstration
         addCard('Card 1', 'This is the body of Card 1', 100, 200)

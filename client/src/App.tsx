@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import TransactionSummary from './transactions/TransactionSummary'
 import MonthlyProfitLoss from './transactions/MonthlyProfitLoss'
-import UNLDiagram from './uml/UMLDiagram'
+import UMLDiagram from './uml/UMLDiagram'
 
 function App() {
     const query = useQuery({
@@ -18,7 +18,7 @@ function App() {
         <>
             <MonthlyProfitLoss transactions={query.data} />
             <TransactionSummary transactions={query.data} />
-            <UNLDiagram />
+            <UMLDiagram />
         </>
     )
 }

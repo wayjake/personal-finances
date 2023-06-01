@@ -1,6 +1,6 @@
-import { FC } from 'react'
+import { FC, useRef } from 'react'
 import styled from 'styled-components'
-import Draggable from 'react-draggable'
+import Draggable, { DraggableEventHandler, DraggableData, DraggableEvent } from 'react-draggable'
 
 const CardContainer = styled.div`
     position: absolute;
@@ -29,9 +29,23 @@ interface CardProps {
 }
 
 export const Card: FC<CardProps> = ({ title, body, x, y }) => {
+    const nodeRef = useRef(null)
+    const eventLogger: DraggableEventHandler = (e: DraggableEvent, data: DraggableData) => {
+        console.log('Event: ', e)
+        console.log('Data: ', data)
+    }
     return (
-        <Draggable position={{ x, y }}>
-            <CardContainer>
+        <Draggable
+            position={{ x, y }}
+            nodeRef={nodeRef}
+            defaultPosition={{ x, y }}
+            grid={[25, 25]}
+            scale={1}
+            onStart={eventLogger}
+            onDrag={eventLogger}
+            onStop={eventLogger}
+        >
+            <CardContainer ref={nodeRef}>
                 <CardTitle>{title}</CardTitle>
                 <CardBody>{body}</CardBody>
             </CardContainer>
