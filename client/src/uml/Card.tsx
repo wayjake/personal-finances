@@ -1,6 +1,7 @@
 import { FC, useRef } from 'react'
 import styled from 'styled-components'
 import Draggable, { DraggableEventHandler, DraggableData, DraggableEvent } from 'react-draggable'
+import { useCardStore } from './card.store'
 
 const CardContainer = styled.div`
     position: absolute;
@@ -21,22 +22,25 @@ const CardBody = styled.p`
     list-style: none;
 `
 
-interface CardProps {
+export interface Card {
+    id: number
     title: string
     body: string
     x: number
     y: number
 }
 
-export const Card: FC<CardProps> = ({ title, body, x, y }) => {
+export const Card: FC<Card> = ({ id, title, body, x, y }) => {
+    const updateCard = useCardStore((state) => state.updateCard)
     const nodeRef = useRef(null)
     const eventLogger: DraggableEventHandler = (e: DraggableEvent, data: DraggableData) => {
-        console.log('Event: ', e)
-        console.log('Data: ', data)
+        // console.log('Event: ', e)
+        // console.log('Data: ', data)
+        updateCard(id, { x: data.x, y: data.y })
     }
     return (
         <Draggable
-            position={{ x, y }}
+            // position={{ x, y }}
             nodeRef={nodeRef}
             defaultPosition={{ x, y }}
             grid={[25, 25]}
@@ -46,7 +50,7 @@ export const Card: FC<CardProps> = ({ title, body, x, y }) => {
             onStop={eventLogger}
         >
             <CardContainer ref={nodeRef}>
-                <CardTitle>{title}</CardTitle>
+                <CardTitle className="cursor">{title}</CardTitle>
                 <CardBody>{body}</CardBody>
             </CardContainer>
         </Draggable>
